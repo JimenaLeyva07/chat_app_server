@@ -17,24 +17,24 @@
             console.log('Conectado al servidor');
         });
 
-        client.on('active-bands',function(payload){
-            console.clear();
-            console.table(payload);
-        });
+        // client.on('active-bands',function(payload){
+        //     console.clear();
+        //     console.table(payload);
+        // });
 
         client.on('disconnect', function(){
             console.log('Conexión al servidor perdida');
         });
 
-        client.emit('message', {name: 'Jimena'});
+        // client.emit('message', {name: 'Jimena'});
 
-        client.on('message', function(payload) {
-            console.log('Listening!!', payload);
-        });
+        // client.on('message', function(payload) {
+        //     console.log('Listening!!', payload);
+        // });
 
-        client.on('new-message', function(payload){
-            console.log('Flutter Listening!', payload)
-        })
+        // client.on('new-message', function(payload){
+        //     console.log('Flutter Listening!', payload)
+        // })
     </script>
     
 </body>

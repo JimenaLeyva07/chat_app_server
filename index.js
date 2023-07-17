@@ -3,8 +3,15 @@ const express = require('express');
 const path = require('path');
 require('dotenv').config();
 
+//DB Config
+const{ dbConnection } = require('./database/config');
+dbConnection();
+
 // App de Express
 const app = express();
+
+// Body read and parse
+app.use(express.json());
 
 // Node Server
 const server = require('http').createServer(app);
@@ -17,6 +24,9 @@ require('./sockets/socket.js');
 const publicPath = path.resolve(__dirname, 'public');
 
 app.use(express.static(publicPath));
+
+// My Route. Middleware => función que se ejecuta cuando el código va pasando x ese lugar
+app.use('/api/login', require('./routes/auth'));
 
 server.listen(process.env.PORT, (err)=>{
     if(err) throw new Error(err);
