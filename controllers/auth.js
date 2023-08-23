@@ -50,13 +50,11 @@ const createUser = async (req, resp = response) =>{
 const login = async (req, resp = response) => {
     const { email, password } = req.body;
 
-
-
     try {
 
-        const userDB = await User.findOne({email:email});
+        const user = await User.findOne({email:email});
     
-        if(!userDB){
+        if(!user){
             return resp.status(400).json({
                 ok: false,
                 message: 'Email is not registered.'
@@ -64,7 +62,7 @@ const login = async (req, resp = response) => {
         }
     
         // Validar contraseña
-        const isValidPassword = bcrypt.compareSync(password, userDB.password); 
+        const isValidPassword = bcrypt.compareSync(password, user.password); 
         if (!isValidPassword) {
             return resp.status(400).json({
                 ok: false,
@@ -74,11 +72,11 @@ const login = async (req, resp = response) => {
         }
 
         // Generar JWT
-        const token = await generateJWT(userDB.id);
+        const token = await generateJWT(user.id);
     
         resp.json({
             ok:true,
-            userDB,
+            user,
             token
         });
         
